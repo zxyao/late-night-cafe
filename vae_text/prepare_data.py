@@ -50,8 +50,21 @@ def prepare_data(data_name):
                   '13IsiffVjcQ-wrrbBGMwiG3sYf-DFxtXH/view?usp=sharing'
             tx.data.maybe_download(url, path='./', filenames='yahoo.zip',
                                    extract=True)
+    
     else:
-        raise ValueError('Unknown data: {}'.format(data_name))
+        data_path = "./data/{}".format(data_name)
+        train_path = os.path.join(data_path, '{}.train.txt'.format(data_name))
+        if not tf.gfile.Exists(train_path):
+            url = "https://drive.google.com/file/d/19cc5WnjAZhToabcPDqXD1neXZ2pE0Fa2/view"
+            tx.data.maybe_download(url, path='./', filenames='{}.zip'.format(data_name),
+                                   extract=True)
+        
+        vocab_path = os.path.join(data_path, "vocab.txt")
+        word_to_id = tx.data.make_vocab(
+            train_path, return_type="dict")
+        with open(vocab_path, 'w') as fvocab:
+            for word in word_to_id:
+                fvocab.write("%s\n" % word)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='prepare data')
