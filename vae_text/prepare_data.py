@@ -55,7 +55,7 @@ def prepare_data(data_name):
         data_path = "./data/{}".format(data_name)
         train_path = os.path.join(data_path, '{}.train.txt'.format(data_name))
         if not tf.gfile.Exists(train_path):
-            url = "https://drive.google.com/file/d/1Qj-niqRXZLlEDUe7PsBvH-n_i8LqI3bm/view"
+            url = "https://drive.google.com/file/d/1rOYX10FEW1zpaaDq_V3Hv-NmnzN6cGJK/view"
             tx.data.maybe_download(url, path='./', filenames='poem.zip',
                                    extract=True)
         
