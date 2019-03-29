@@ -29,7 +29,7 @@ Then download data sets and start training!
 python prepare_data.py --data [data_name]
 python vae_train.py --config [config_file]
 ```
-``data_name`` can be ``poem-v18000-n1`` and more...
+``data_name`` can be ``poem-v18000-n1``, ``poem-v10000-n1``, ``poem-v15000-l140``, ``poem-v10000-l140``.
 
 ``config_file`` can be ``config_trans_poem`` or ``config_lstm_poem``.
 
