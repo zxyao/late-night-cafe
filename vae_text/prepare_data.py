@@ -51,7 +51,7 @@ def prepare_data(data_name):
             tx.data.maybe_download(url, path='./', filenames='yahoo.zip',
                                    extract=True)
     
-    else:
+    elif data_name.startswith("poem"):
         data_path = "./data/{}".format(data_name)
         train_path = os.path.join(data_path, '{}.train.txt'.format(data_name))
         if not tf.gfile.Exists(train_path):
@@ -65,6 +65,8 @@ def prepare_data(data_name):
         with open(vocab_path, 'w') as fvocab:
             for word in word_to_id:
                 fvocab.write("%s\n" % word)
+    else:
+        raise ValueError('Unknown data: {}'.format(data_name))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='prepare data')
