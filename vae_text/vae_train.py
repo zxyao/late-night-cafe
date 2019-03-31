@@ -285,7 +285,7 @@ def _main(_):
                 initial_state=dcdr_states,
                 decoding_strategy="infer_sample",
                 embedding=_cat_embedder,
-                max_decoding_length=100,
+                max_decoding_length=140,
                 start_tokens=start_tokens,
                 end_token=end_token)
         else:
@@ -293,7 +293,7 @@ def _main(_):
                 memory=dcdr_states,
                 decoding_strategy="infer_sample",
                 memory_sequence_length=tf.ones(tf.shape(dcdr_states)[0]),
-                max_decoding_length=100,
+                max_decoding_length=140,
                 start_tokens=start_tokens,
                 end_token=end_token)
 
@@ -310,7 +310,10 @@ def _main(_):
 
         for sent in sample_tokens_:
             sent = list(sent)
-            end_id = sent.index(vocab.eos_token.encode())
+            if vocab.eos_token.encode() in sent:
+                end_id = sent.index(vocab.eos_token.encode())
+            else:
+                end_id = len(sent)-1
             fh.write(' '.join(list(map(lambda x: x.decode(), sent[:end_id+1]))) + '\n')
 
         fh.close()
