@@ -79,7 +79,7 @@ def prepare_data(data_name):
         vocab_path = os.path.join(data_path, "vocab.txt")
         word_to_id = tx.data.make_vocab(
             train_path, return_type="dict")
-        with open(vocab_path, 'w') as fvocab:
+        with open(vocab_path, 'w', encoding='utf-8') as fvocab:
             for word in word_to_id:
                 fvocab.write("%s\n" % word)
 
