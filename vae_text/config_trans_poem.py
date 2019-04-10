@@ -18,7 +18,7 @@
 # pylint: disable=invalid-name, too-few-public-methods, missing-docstring
 
 # MUST edit the line below!!!
-dataset = "poem-v18000-n1"
+dataset = "poe-v15000-l-1"
 num_epochs = 5
 hidden_size = 512
 dec_dropout_in = 0.

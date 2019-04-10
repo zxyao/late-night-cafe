@@ -122,7 +122,8 @@ def _main(_):
         decoder_initial_state_size = decoder.cell.state_size
     elif config.decoder_hparams["type"] == 'transformer':
         decoder = tx.modules.TransformerDecoder(
-            embedding=decoder_embedder.embedding,
+            #embedding=decoder_embedder.embedding,
+            vocab_size=train_data.vocab.size,
             hparams=config.trans_hparams)
         decoder_initial_state_size = tf.TensorShape(
             [1, config.dec_emb_hparams["dim"]])
@@ -276,6 +277,10 @@ def _main(_):
             embedding = decoder_embedder(ids)
             return tf.concat([embedding, latent_z], axis=1)
 
+        def _embedder(ids):
+            embedding = decoder_embedder(ids)
+            return embedding
+
         vocab = train_data.vocab
         start_tokens = tf.ones(batch_size, tf.int32) * vocab.bos_token_id;
         end_token = vocab.eos_token_id;
@@ -293,6 +298,7 @@ def _main(_):
                 memory=dcdr_states,
                 decoding_strategy="infer_sample",
                 memory_sequence_length=tf.ones(tf.shape(dcdr_states)[0]),
+                embedding=_embedder,
                 max_decoding_length=140,
                 start_tokens=start_tokens,
                 end_token=end_token)

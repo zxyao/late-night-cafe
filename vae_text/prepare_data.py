@@ -70,9 +70,11 @@ def prepare_data(data_name):
         data_path = "./data/{}".format(data_name)
         train_path = os.path.join(data_path, '{}.train.txt'.format(data_name))
         if not tf.gfile.Exists(train_path):
+            print("Downloading data set...")
             url = "https://drive.google.com/file/d/1f8v5c_AwLwWXCTY_wcRF0G8mUNn6dt-x/view"
-            tx.data.maybe_download(url, path='./', filenames='poem.zip',
+            tx.data.maybe_download(url, path='./', filenames='poe.zip',
                                    extract=True)
+            print("Download finishes")
         
         vocab_path = os.path.join(data_path, "vocab.txt")
         word_to_id = tx.data.make_vocab(
