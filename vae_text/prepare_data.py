@@ -65,6 +65,22 @@ def prepare_data(data_name):
         with open(vocab_path, 'w') as fvocab:
             for word in word_to_id:
                 fvocab.write("%s\n" % word)
+
+    elif data_name.startswith("poe"):
+        data_path = "./data/{}".format(data_name)
+        train_path = os.path.join(data_path, '{}.train.txt'.format(data_name))
+        if not tf.gfile.Exists(train_path):
+            url = "https://drive.google.com/file/d/1f8v5c_AwLwWXCTY_wcRF0G8mUNn6dt-x/view"
+            tx.data.maybe_download(url, path='./', filenames='poem.zip',
+                                   extract=True)
+        
+        vocab_path = os.path.join(data_path, "vocab.txt")
+        word_to_id = tx.data.make_vocab(
+            train_path, return_type="dict")
+        with open(vocab_path, 'w') as fvocab:
+            for word in word_to_id:
+                fvocab.write("%s\n" % word)
+
     else:
         raise ValueError('Unknown data: {}'.format(data_name))
 
