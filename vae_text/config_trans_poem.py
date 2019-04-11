@@ -33,7 +33,7 @@ lr_decay_hparams = {
     "init_lr": 0.001,
     "threshold": 2,
     "decay_factor": 0.5,
-    "max_decay": 10
+    "max_decay": 20
 }
 
 
