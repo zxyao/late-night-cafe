@@ -8,7 +8,7 @@ import copy
 import random
 import socket
 import sys
-sys.path.append('/home/ubuntu/aa/pinterest-scraper/')
+sys.path.append('/home/ubuntu/late-night-cafe/pinterest-scraper/')
 import time
 import unicodedata
 import urllib
