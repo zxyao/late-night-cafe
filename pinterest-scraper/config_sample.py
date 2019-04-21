@@ -1,0 +1,4 @@
+# Pinterest Settings
+PINTEREST_USERNAME = ''
+
+PINTEREST_PASSWORD = ''
