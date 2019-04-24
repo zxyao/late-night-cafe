@@ -1,54 +1,39 @@
 # late-night-cafe
 
-Install libraries
+## Dataset
+Preprocessed Poe's texts, Witkin Kmeans results and crawled Pinterest eye pictures downloadable [here](https://drive.google.com/drive/folders/1pqzuOnkmRIbD-v8B59v2DMCAcs1vajty?usp=sharing).
+
+## Usage
+### Poe's Text Generator
 ```bash
 source activate tensorflow_p36
-
 pip3 install --user --upgrade tensorflow-probability
-
 git clone https://github.com/asyml/texar.git
 cd texar
 pip install -e .
 ```
 
-Get this repo
-```bash
-cd ~
-git clone https://github.com/zxyao/late-night-cafe.git
-```
-
-## Train
-
-Make sure you are in ``late-night-cafe/vae_text/`` which can be done by
-```bash
-cd ~/late-night-cafe/vae_text/
-```
-
-Then download data sets and start training!
+#### Train
 ```bash
 python prepare_data.py --data [data_name]
 python vae_train.py --config [config_file]
 ```
-``data_name`` can be ``poem-v18000-n1``, ``poem-v10000-n1``, ``poem-v15000-l140``, ``poem-v10000-l140``.
-
+``data_name`` can be ``poe-v15000-l-1``, ``poe-v15000-l100``, ``poe-v15000-l140``, ``poe-v18000-l-1``, ``poe-v18000-l100``, ``poe-v18000-l140``.
 ``config_file`` can be ``config_trans_poem`` or ``config_lstm_poem``.
 
-An example runnable command is 
-```bash
-python prepare_data.py --data poem-v18000-n1
-python vae_train.py --config config_trans_poem
-```
+You need to change one line in config.py every time you change the data set!
 
-**You need to change one line in config.py every time you change the data set!!!!**
-
-## Generate
+#### Generate
 ```bash
 python vae_train.py --config [config_file] --mode predict --model [model/path/to/model.ckpt]
 ```
+``[model/path/to/model.ckpt`` Check the ``models/`` folder. An example is ``poe-v15000-l-1_transformerDecoder.ckpt``.
 
-``[model/path/to/model.ckpt`` Check the ``models/`` folder. An example is ``poem-v18000-n1_transformerDecoder.ckpt``.
+### Pinterest Scrapper
+Please refer to README inside the folder.
 
-An example runnable command is
-```bash
-python vae_train.py --config config_trans_poem --mode predict --model models/poem-v18000-n1/poem-v18000-n1_transformerDecoder.ckpt
-```
+### Kmeans
+Provide the image folder path in ``IMAGE_PATH`` and the code will try to create folders for each cluster and copy images there.
+
+### KNN 
+All dependencies and steps described in detail in the notebook.
